@@ -1,0 +1,102 @@
+.navbar {
+  position: relative;
+
+  width: 100%;
+
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.06);
+
+  background:
+    rgba(8, 9, 13, 0.7);
+
+  backdrop-filter: blur(20px);
+
+  z-index: 10;
+}
+
+.navbar-container {
+  width: min(
+    100% - 40px,
+    1200px
+  );
+
+  min-height: 72px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.02em;
+}
+
+.brand-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+}
+
+.brand-highlight {
+  color: var(--color-primary-light);
+}
+
+.navbar-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--color-text-muted);
+
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--color-success);
+
+  box-shadow:
+    0 0 10px
+    rgba(34, 197, 94, 0.7);
+}
+
+@media (max-width: 600px) {
+  .navbar-status {
+    display: none;
+  }
+}

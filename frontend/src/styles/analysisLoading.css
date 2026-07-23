@@ -1,0 +1,286 @@
+.analysis-loading-page {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  overflow: hidden;
+}
+
+
+                       /* CONTAINER */
+
+.analysis-loading-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+
+/* BACKGROUND GLOW */
+
+.analysis-loading-container::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    rgba(139, 92, 246, 0.1);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* ORB  */
+
+.loading-orb-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 34px;
+}
+
+.loading-orb-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background:
+    rgba(139, 92, 246, 0.18);
+
+  filter: blur(25px);
+
+  animation:
+    orbGlow 2.5s ease-in-out infinite;
+}
+
+.loading-orb {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-secondary)
+    );
+
+  box-shadow:
+    0 0 40px
+    rgba(139, 92, 246, 0.4);
+
+  animation:
+    orbFloat 3s ease-in-out infinite;
+}
+
+@keyframes orbGlow {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.15); 
+    opacity: 1;
+  }
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+                 /* HEADING */
+
+.analysis-loading-container h1 {
+  font-size: clamp(
+    32px,
+    5vw,
+    48px
+  );
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.analysis-loading-container h1 .gradient-text {
+  display: block;
+  margin-top: 6px;
+}
+
+.loading-description {
+  max-width: 450px;
+  margin: 20px auto 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+                    /* STEPS  */
+
+.analysis-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 45px;
+  text-align: left;
+}
+
+.analysis-step {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 17px;
+  border: 1px solid
+    transparent;
+  border-radius: var(--radius-md);
+  opacity: 0.4;
+  transition:
+    all 0.4s ease;
+}
+
+.analysis-step.active {
+  border-color:
+    rgba(139, 92, 246, 0.25);
+
+  background:
+    rgba(139, 92, 246, 0.08);
+  opacity: 1;
+}
+
+.analysis-step.completed {
+  opacity: 0.8;
+}
+
+
+                    /* STEP ICON */
+
+.analysis-step-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  transition:
+    all 0.4s ease;
+}
+
+.analysis-step.active
+.analysis-step-icon {
+  color: var(--color-primary-light); 
+  background:
+    rgba(139, 92, 246, 0.15);
+
+  box-shadow:
+    0 0 20px
+    rgba(139, 92, 246, 0.15);
+}
+
+.analysis-step.completed
+.analysis-step-icon {
+  color: var(--color-success);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+
+                  /* STEP CONTENT */
+
+.analysis-step-content {
+  flex: 1;
+}
+
+.analysis-step-content h3 {
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.analysis-step-content p {
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+
+                    /* STEP LOADER */
+
+.step-loader {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.step-loader span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  animation:
+    dotPulse 1.2s infinite ease-in-out;
+}
+
+.step-loader span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.step-loader span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+                        /*  FOOTER */
+
+.analysis-loading-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 32px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.analysis-loading-footer
+.status-dot {
+  width: 6px;
+  height: 6px;
+}
