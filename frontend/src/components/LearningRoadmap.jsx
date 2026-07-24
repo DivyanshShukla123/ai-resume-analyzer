@@ -1,57 +1,61 @@
-import { BookOpen, Clock, CheckCircle2 } from "lucide-react";
+import { BookOpen, Clock, ExternalLink } from "lucide-react";
 import "../styles/results.css";
 
 function LearningRoadmap({ roadmap = [] }) {
   return (
     <section className="roadmap-section">
-      <div className="section-heading">
-        <span className="result-label">PERSONALIZED PLAN</span>
+      <div className="section-eyebrow">PERSONALIZED PLAN</div>
+      <h2>Your learning roadmap</h2>
 
-        <h2>Your learning roadmap</h2>
+      <p className="section-description">
+        A structured path to close your skill gaps and become a stronger
+        candidate.
+      </p>
 
-        <p>
-          A structured path to close your skill gaps and become a stronger
-          candidate.
-        </p>
-      </div>
-
-      <div className="roadmap">
+      <div className="roadmap-list">
         {roadmap.map((item, index) => (
-          <div className="roadmap-item" key={index}>
+          <div className="roadmap-card" key={index}>
             <div className="roadmap-number">
-              {String(item.step || index + 1).padStart(2, "0")}
+              {String(index + 1).padStart(2, "0")}
             </div>
 
-            <div className="roadmap-line" />
-
             <div className="roadmap-content">
-              <div className="roadmap-content-header">
-                <div>
-                  <h3>{item.title}</h3>
+              <div className="roadmap-header">
+                <h3>{item.skill}</h3>
 
-                  {item.duration && (
-                    <span className="roadmap-duration">
-                      <Clock size={13} />
+                {item.duration && (
+                  <span className="roadmap-duration">
+                    <Clock size={15} />
 
-                      {item.duration}
-                    </span>
-                  )}
-                </div>
-
-                <BookOpen size={19} className="result-icon" />
+                    {item.duration}
+                  </span>
+                )}
               </div>
 
-              {item.description && <p>{item.description}</p>}
-
-              {item.topics && (
+              {item.topics?.length > 0 && (
                 <div className="roadmap-topics">
-                  {item.topics.map((topic, topicIndex) => (
-                    <span key={topicIndex}>
-                      <CheckCircle2 size={13} />
+                  <h4>Topics to learn</h4>
 
-                      {topic}
-                    </span>
-                  ))}
+                  <ul>
+                    {item.topics.map((topic, topicIndex) => (
+                      <li key={topicIndex}>{topic}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {item.resources?.length > 0 && (
+                <div className="roadmap-resources">
+                  <h4>
+                    <BookOpen size={16} />
+                    Recommended resources
+                  </h4>
+
+                  <ul>
+                    {item.resources.map((resource, resourceIndex) => (
+                      <li key={resourceIndex}>{resource}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>

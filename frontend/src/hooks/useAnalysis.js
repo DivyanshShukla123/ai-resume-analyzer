@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { analyzeResumeApi, getAnalysisApi } from "../api/analysisApi";
+import { analyzeResumeAPI, getAnalysisAPI } from "../api/analysisApi";
 
 function useAnalysis() {
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ function useAnalysis() {
       setLoading(true);
       setError(null);
 
-      const result = await analyzeResumeApi(formData);
+      const result = await analyzeResumeAPI(formData);
 
       setAnalysis(result);
 
@@ -32,7 +32,7 @@ function useAnalysis() {
       setLoading(true);
       setError(null);
 
-      const result = await getAnalysisApi(analysisId);
+      const result = await getAnalysisAPI(analysisId);
 
       setAnalysis(result);
     } catch (error) {

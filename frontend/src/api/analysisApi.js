@@ -18,12 +18,12 @@ export const analyzeResumeAPI = async ({ resume, role, jobDescription }) => {
     },
   });
 
-  return response.data;
+  return response.data.data.savedAnalysis;
 };
 
 
 export const getAnalysisAPI = async (analysisId) => {
   const response = await API.get(`/analysis/${analysisId}`);
 
-  return response.data;
+  return response.data.data;
 };

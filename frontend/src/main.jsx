@@ -4,10 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { AnalysisProvider } from "./state/AnalysisContext.jsx";
 import "./index.css";
+import Navbar from "./components/Navbar";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
+      <Navbar/>
       <AnalysisProvider>
         <App />
       </AnalysisProvider>

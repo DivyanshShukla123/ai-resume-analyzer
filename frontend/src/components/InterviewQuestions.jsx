@@ -4,65 +4,55 @@ import "../styles/results.css";
 
 function InterviewQuestions({
   technicalQuestions = [],
-
-  behaviouralQuestions = [],
+  behavioralQuestions = [],
 }) {
   return (
-    <section className="questions-section">
-      <div className="section-heading">
-        <span className="result-label">INTERVIEW PREPARATION</span>
+    <section className="interview-section">
+      <div className="section-eyebrow">INTERVIEW PREPARATION</div>
 
-        <h2>Questions you should prepare for</h2>
+      <h2>Questions you should prepare for</h2>
 
-        <p>Based on your resume and the requirements of the target role.</p>
-      </div>
+      <p className="section-description">
+        Based on your resume and the requirements of the target role.
+      </p>
 
       <QuestionGroup
-        title="Technical questions"
-        icon={<Code2 size={19} />}
+        title="Technical Questions"
+        icon={<Code2 size={20} />}
         questions={technicalQuestions}
       />
 
       <QuestionGroup
-        title="Behavioural questions"
-        icon={<MessageCircle size={19} />}
-        questions={behaviouralQuestions}
+        title="Behavioral Questions"
+        icon={<MessageCircle size={20} />}
+        questions={behavioralQuestions}
       />
     </section>
   );
 }
 
-function QuestionGroup({
-  title,
-  icon,
-  questions,
-}) {
+function QuestionGroup({ title, icon, questions }) {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
     <div className="question-group">
       <div className="question-group-header">
         <div className="question-group-title">
-          <div className="question-group-icon">{icon}</div>
+          {icon}
 
           <h3>{title}</h3>
         </div>
 
-        <span className="question-count">{questions.length} questions</span>
+        <span>{questions.length} questions</span>
       </div>
 
       <div className="questions-list">
         {questions.map((item, index) => {
           const isOpen = openIndex === index;
 
-          const question = typeof item === "string" ? item : item.question;
-
           return (
             <div
-              className={`
-                  question-item
-                  ${isOpen ? "open" : ""}
-                `}
+              className={`question-card ${isOpen ? "question-card-open" : ""}`}
               key={index}
             >
               <button
@@ -73,26 +63,27 @@ function QuestionGroup({
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                <span className="question-text">{question}</span>
+                <span className="question-text">{item.question}</span>
 
                 <ChevronDown
                   size={18}
-                  className={`
-                      question-chevron
-                      ${isOpen ? "rotated" : ""}
-                    `}
+                  className={isOpen ? "rotate-icon" : ""}
                 />
               </button>
 
               {isOpen && (
-                <div className="question-details">
-                  {item.topic && <span>Topic: {item.topic}</span>}
+                <div className="question-answer">
+                  <div className="question-meta">
+                    <strong>What this tests</strong>
 
-                  {item.difficulty && (
-                    <span>Difficulty: {item.difficulty}</span>
-                  )}
+                    <p>{item.intention}</p>
+                  </div>
 
-                  {item.focus && <span>Focus: {item.focus}</span>}
+                  <div className="model-answer">
+                    <strong>Model Answer</strong>
+
+                    <p>{item.modelAnswer}</p>
+                  </div>
                 </div>
               )}
             </div>
