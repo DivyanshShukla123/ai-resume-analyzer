@@ -1,6 +1,6 @@
-import { getModel } from "../config/gemini.js";
+import  getModel  from "../config/gemini.js";
 import { buildAnalysisPrompt } from "../utils/prompt.js";
-import { parseAIJson } from "../utils/parse-json.js";
+import  parseAIJson  from "../utils/parse-json.js";
 
 import { validateAnalysis } from "../utils/validate-analysis.js";
 
@@ -17,6 +17,7 @@ export const analyzeResumeWithGemini = async ({
     role,
   });
 
+  const geminiModel = getModel();
   const result = await geminiModel.generateContent(prompt);
   const response = result.response.text();
 

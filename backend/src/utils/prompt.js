@@ -1,4 +1,8 @@
-export const buildAnalysisPrompt = ({ resumeText, jobDescription, role }) => {
+export const buildAnalysisPrompt = ({
+  resumeText,
+  jobDescription,
+  role,
+}) => {
   return `
 You are an expert ATS resume analyzer, technical interviewer,
 behavioral interviewer, and career mentor.
@@ -15,93 +19,99 @@ RESUME:
 ${resumeText}
 
 Return ONLY valid JSON.
-
 Do not return markdown.
 Do not use code fences.
 Do not write any explanation outside the JSON.
 
-The JSON must follow EXACTLY this structure:
+Use EXACTLY this structure:
 
 {
   "atsScore": 0,
 
-  "scoreBreakdown": {
-    "skillsMatch": 0,
-    "experienceMatch": 0,
-    "keywordMatch": 0,
-    "formatting": 0
-  },
-
   "summary": "",
-
-  "strengths": [],
-
-  "missingSkills": [
-    {
-      "skill": "",
-      "importance": "High",
-      "reason": ""
-    }
-  ],
-
-  "keywords": [],
 
   "technicalQuestions": [
     {
       "question": "",
-      "topic": "",
-      "difficulty": "Easy"
+      "intention": "",
+      "modelAnswer": ""
     }
   ],
 
-  "behaviouralQuestions": [
+  "behavioralQuestions": [
     {
       "question": "",
-      "focus": ""
+      "intention": "",
+      "modelAnswer": ""
+    }
+  ],
+
+  "keywords": {
+    "present": [],
+    "missing": [],
+    "recommended": []
+  },
+
+  "skillGaps": [
+    {
+      "skill": "",
+      "importance": "",
+      "reason": ""
     }
   ],
 
   "roadmap": [
     {
-      "step": 1,
-      "title": "",
+      "skill": "",
       "duration": "",
-      "description": "",
-      "topics": []
+      "topics": [],
+      "resources": []
     }
   ],
 
-  "suggestions": []
+  "resumeImprovements": [
+    {
+      "section": "",
+      "suggestion": ""
+    }
+  ]
 }
 
 STRICT RULES:
 
-1. atsScore must be a number from 0 to 100.
+1. atsScore must be a number between 0 and 100.
 
-2. Every scoreBreakdown value must be between 0 and 100.
+2. Generate EXACTLY 10 technical questions.
 
-3. Generate EXACTLY 10 technical questions.
+3. Generate EXACTLY 10 behavioral questions.
 
-4. Generate EXACTLY 10 behavioural questions.
+4. Each technical question must contain:
+   question, intention, and modelAnswer.
 
-5. Technical questions must be based on:
-   - the target role
-   - the job description
-   - technologies mentioned in the resume
-   - technologies missing from the resume but required by the job
+5. Each behavioral question must contain:
+   question, intention, and modelAnswer.
 
-6. Behavioural questions must be relevant to the candidate's
-   experience, projects, education, and target role.
+6. keywords.present must contain keywords already found
+   in the resume.
 
-7. Generate relevant ATS keywords from the job description.
+7. keywords.missing must contain important job-related keywords
+   absent from the resume.
 
-8. Identify important skills that are missing or weak in the resume.
+8. keywords.recommended must contain keywords the candidate
+   should consider adding if genuinely relevant.
 
-9. Create a practical learning roadmap based specifically
-   on the missingSkills.
+9. skillGaps must identify important skills missing or weak
+   compared to the target job.
 
-10. Do not invent experience, companies, projects, or achievements.
+10. roadmap must be directly based on the identified skill gaps.
 
-11. Return valid JSON only.
+11. Every roadmap item must contain:
+    skill, duration, topics, and resources.
+
+12. Do not invent experience, companies, projects,
+    achievements, or technologies for the candidate.
+
+13. Return valid JSON only.
 `;
 };
+

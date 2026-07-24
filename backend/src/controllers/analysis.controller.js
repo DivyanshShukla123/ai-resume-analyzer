@@ -1,5 +1,5 @@
 import {extractTextFromPDF} from "../services/pdf.service.js";
-import analyzeResumeWithGemini from "../services/gemini.service.js";
+import { analyzeResumeWithGemini } from "../services/gemini.service.js";
 import Analysis from "../models/analysis.model.js";
 import mongoose from "mongoose";
 
@@ -50,19 +50,17 @@ export const analyzeResume = async (req, res) => {
     const savedAnalysis = await Analysis.create({
       role,
       jobDescription,
-      resumeFileName: req.file.originalname,
 
       atsScore: analysis.atsScore,
-      scoreBreakdown: analysis.scoreBreakdown,
       summary: analysis.summary,
 
-      strengths: analysis.strengths,
-      missingSkills: analysis.missingSkills,
-      keywords: analysis.keywords,
       technicalQuestions: analysis.technicalQuestions,
-      behaviouralQuestions: analysis.behaviouralQuestions,
+      behavioralQuestions: analysis.behavioralQuestions,
+
+      keywords: analysis.keywords,
+      skillGaps: analysis.skillGaps,
       roadmap: analysis.roadmap,
-      suggestions: analysis.suggestions
+      resumeImprovements: analysis.resumeImprovements,
     });
 
     return res.status(201).json({
