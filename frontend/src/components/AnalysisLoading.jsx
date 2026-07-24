@@ -59,7 +59,7 @@ function AnalysisLoading() {
   return (
     <main className="analysis-loading-page">
       <div className="analysis-loading-container">
-        /* Animated Icon */
+        {/* Animated Icon */}
 
         <div className="loading-orb-wrapper">
           <div className="loading-orb-glow" />
@@ -68,7 +68,7 @@ function AnalysisLoading() {
           </div>
         </div>
 
-        /* Heading */
+        {/* Heading */}
 
         <h1>
           Analyzing your
@@ -96,7 +96,7 @@ function AnalysisLoading() {
                     ${isActive ? "active" : ""}
                   `}
               >
-                /* Step Icon */
+                {/* Step Icon */}
 
                 <div className="analysis-step-icon">
                   {isCompleted ? (
@@ -108,14 +108,14 @@ function AnalysisLoading() {
                   )}
                 </div>
 
-                /* Step Content */
+                {/* Step Content */}
 
                 <div className="analysis-step-content">
                   <h3>{step.label}</h3>
                   <p>{step.description}</p>
                 </div>
 
-                 /* Active Loading */ 
+                {/* Active Loading */}
 
                 {isActive && (
                   <div className="step-loader">

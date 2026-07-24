@@ -37,7 +37,7 @@ function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
           `}
         >
           <div className="score-circle-inner">
-            <strong>{atsScore}</strong>    /*bolds it visually*/
+            <strong>{atsScore}</strong>    
 
             <span>/100</span>
           </div>

@@ -128,7 +128,7 @@ function Analyze() {
         jobDescription: jobDescription.trim(),
       });
 
-      navigate(`/results/${data.analysisId}`);
+      navigate(`/results/${data._id}`);
     } catch (error) {
       console.error("Analysis failed:", error);
     }
