@@ -99,6 +99,7 @@ function Analyze() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     setFormError("");
 
     if (!resume) {
@@ -122,15 +123,21 @@ function Analyze() {
     }
 
     try {
-      const data = await analyzeResume({
+      const analysis = await analyzeResume({
         resume,
         role: role.trim(),
         jobDescription: jobDescription.trim(),
       });
 
-      navigate(`/results/${data._id}`);
+      if (!analysis?._id) {
+        throw new Error("Analysis ID was not returned.");
+      }
+
+      navigate(`/results/${analysis._id}`);
     } catch (error) {
       console.error("Analysis failed:", error);
+
+      setFormError(error.message || "Analysis failed. Please try again.");
     }
   };
 

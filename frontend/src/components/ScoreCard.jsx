@@ -31,13 +31,13 @@ function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
 
       <div className="score-main">
         <div
-          className={`
-            score-circle
-            ${scoreColor}
-          `}
+          className={`score-circle ${scoreColor}`}
+          style={{
+            "--score-angle": `${(atsScore / 100) * 360}deg`,
+          }}
         >
           <div className="score-circle-inner">
-            <strong>{atsScore}</strong>    
+            <strong>{atsScore}</strong>
 
             <span>/100</span>
           </div>

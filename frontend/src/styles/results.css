@@ -127,12 +127,12 @@
   justify-content: center;
   border-radius: 50%;
 
-  background:
-    conic-gradient(
-      var(--color-primary) 0deg,
-      var(--color-secondary) 295deg,
-      var(--color-border) 295deg
-    );
+  background: conic-gradient(
+    var(--color-primary) 0deg,
+    var(--color-primary) var(--score-angle),
+    var(--color-border) var(--score-angle),
+    var(--color-border) 360deg
+  );
 }
 
 .score-circle-inner {

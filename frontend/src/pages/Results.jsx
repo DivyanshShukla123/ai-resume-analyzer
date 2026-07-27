@@ -1,4 +1,4 @@
-import { ArrowLeft, Download, RotateCcw } from "lucide-react";
+import { ArrowLeft, RotateCcw } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ScoreCard from "../components/ScoreCard";
@@ -13,6 +13,7 @@ import "../styles/results.css";
 function Results() {
   const navigate = useNavigate();
   const { analysisId } = useParams();
+
   const { analysis, loading, error, getAnalysis } = useAnalysis();
 
   useEffect(() => {
@@ -22,80 +23,139 @@ function Results() {
   }, [analysisId]);
 
   if (loading) {
-    return <div className="results-loading">Loading your analysis...</div>;
+    return (
+      <main className="results-page">
+        <div className="results-state">
+          <div className="loading-spinner"></div>
+          <h2>Analyzing your resume...</h2>
+          <p>We are preparing your personalized career insights.</p>
+        </div>
+      </main>
+    );
   }
 
   if (error) {
     return (
-      <div className="results-error">
-        <h2>Unable to load analysis</h2>
+      <main className="results-page">
+        <div className="results-state results-state-error">
+          <h2>Unable to load analysis</h2>
+          <p>{error}</p>
 
-        <p>{error}</p>
-
-        <button onClick={() => navigate("/analyze")}>Try again</button>
-      </div>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/analyze")}
+          >
+            Analyze another resume
+          </button>
+        </div>
+      </main>
     );
   }
 
   if (!analysis) {
-    return null;
+    return (
+      <main className="results-page">
+        <div className="results-state">
+          <h2>No analysis found</h2>
+          <p>We couldn't find the requested resume analysis.</p>
+
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/analyze")}
+          >
+            Start a new analysis
+          </button>
+        </div>
+      </main>
+    );
   }
 
   return (
     <main className="results-page">
-      <header className="results-header">
-        <button className="back-button" onClick={() => navigate("/analyze")}>
-          <ArrowLeft size={18} />
-          Analyze another resume
-        </button>
+      <div className="container">
+        {/* HEADER */}
 
-        <div className="results-heading">
-          <span className="section-eyebrow">AI RESUME ANALYSIS</span>
+        <header className="results-header">
+          <button className="back-button" onClick={() => navigate("/analyze")}>
+            <ArrowLeft size={18} />
+            Analyze another resume
+          </button>
 
-          <h1>{analysis.role}</h1>
+          <div className="results-title-row">
+            <div>
+              <span className="section-eyebrow">AI RESUME ANALYSIS</span>
 
-          <p>Here's how well your resume matches this role.</p>
-        </div>
+              <h1>{analysis.role}</h1>
 
-        <button
-          className="new-analysis-button"
-          onClick={() => navigate("/analyze")}
-        >
-          <RotateCcw size={17} />
-          New analysis
-        </button>
-      </header>
-
-      <section className="score-summary-grid">
-        <ScoreCard score={analysis.atsScore} />
-
-        <SummaryCard summary={analysis.summary} />
-      </section>
-
-      <KeywordSection keywords={analysis.keywords} />
-
-      <InterviewQuestions
-        technicalQuestions={analysis.technicalQuestions}
-        behavioralQuestions={analysis.behavioralQuestions}
-      />
-
-      <LearningRoadmap roadmap={analysis.roadmap} />
-
-      <section className="improvements-section">
-        <div className="section-eyebrow">FINAL RECOMMENDATIONS</div>
-
-        <h2>How to improve your resume</h2>
-
-        <div className="improvements-list">
-          {analysis.resumeImprovements?.map((improvement, index) => (
-            <div className="improvement-card" key={index}>
-              <span>{improvement.section}</span>
-
-              <p>{improvement.suggestion}</p>
+              <p>Here's how well your resume matches this role.</p>
             </div>
-          ))}
-        </div>
-      </section>
+
+            <div className="results-actions">
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate("/analyze")}
+              >
+                <RotateCcw size={17} />
+                New analysis
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* SCORE + SUMMARY */}
+
+        <section className="results-top-grid">
+          <ScoreCard
+            atsScore={analysis.atsScore}
+            scoreBreakdown={analysis.scoreBreakdown}
+          />
+
+          <SummaryCard
+            summary={analysis.summary}
+            strengths={analysis.strengths || []}
+            missingSkills={analysis.skillGaps || []}
+          />
+        </section>
+
+        {/* KEYWORDS */}
+
+        <KeywordSection keywords={analysis.keywords} />
+
+        {/* QUESTIONS */}
+
+        <InterviewQuestions
+          technicalQuestions={analysis.technicalQuestions || []}
+          behavioralQuestions={analysis.behavioralQuestions || []}
+        />
+
+        {/* ROADMAP */}
+
+        <LearningRoadmap roadmap={analysis.roadmap || []} />
+
+        {/* RESUME IMPROVEMENTS */}
+
+        <section className="suggestions-card">
+          <div className="section-eyebrow">FINAL RECOMMENDATIONS</div>
+
+          <h2>How to improve your resume</h2>
+
+          <div className="suggestions-list">
+            {analysis.resumeImprovements?.map((improvement, index) => (
+              <div className="suggestion-item" key={index}>
+                <div className="suggestion-number">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                <div>
+                  <h3>{improvement.section}</h3>
+
+                  <p>{improvement.suggestion}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
