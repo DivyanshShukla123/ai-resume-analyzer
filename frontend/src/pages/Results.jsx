@@ -72,7 +72,7 @@ function Results() {
 
   return (
     <main className="results-page">
-      <div className="container">
+      <div className="results-container">
         {/* HEADER */}
 
         <header className="results-header">
