@@ -1,4 +1,5 @@
 import { CheckCircle2, AlertTriangle } from "lucide-react";
+import "../styles/SummaryCard.css";
 import "../styles/results.css";
 
 function SummaryCard({ summary, strengths = [], missingSkills = [] }) {

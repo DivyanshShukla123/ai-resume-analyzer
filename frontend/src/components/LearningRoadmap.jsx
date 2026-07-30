@@ -1,4 +1,5 @@
 import { BookOpen, Clock, ExternalLink } from "lucide-react";
+import "../styles/LearningRoadmap.css";
 import "../styles/results.css";
 
 function LearningRoadmap({ roadmap = [] }) {

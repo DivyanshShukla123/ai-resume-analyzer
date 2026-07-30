@@ -1,5 +1,6 @@
 import { ChevronDown, Code2, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import "../styles/InterviewQuestions.css";
 import "../styles/results.css";
 
 function InterviewQuestions({

@@ -1,6 +1,6 @@
 import { CheckCircle2, TrendingUp } from "lucide-react";
-
 import "../styles/results.css";
+import "../styles/ScoreCard.css";
 
 function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
   const {

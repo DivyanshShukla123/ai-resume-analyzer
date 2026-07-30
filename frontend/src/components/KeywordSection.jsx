@@ -1,4 +1,5 @@
 import { CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import "../styles/KeywordSection.css";
 import "../styles/results.css";
 
 function KeywordSection({ keywords = {} }) {
