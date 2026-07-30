@@ -105,10 +105,7 @@ function Results() {
         {/* SCORE + SUMMARY */}
 
         <section className="results-top-grid">
-          <ScoreCard
-            atsScore={analysis.atsScore}
-            scoreBreakdown={analysis.scoreBreakdown}
-          />
+          <ScoreCard atsScore={analysis.atsScore} />
 
           <SummaryCard
             summary={analysis.summary}

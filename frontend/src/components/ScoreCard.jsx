@@ -2,20 +2,25 @@ import { CheckCircle2, TrendingUp } from "lucide-react";
 import "../styles/results.css";
 import "../styles/ScoreCard.css";
 
-function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
-  const {
-    skillsMatch = 0,
-    experienceMatch = 0,
-    keywordMatch = 0,
-    formatting = 0,
-  } = scoreBreakdown;
+function ScoreCard({ atsScore = 0 }) {
+  const score = Number(atsScore) || 0;
 
   const scoreColor =
-    atsScore >= 80
-      ? "score-excellent"
-      : atsScore >= 60
-        ? "score-good"
-        : "score-low";
+    score >= 80 ? "score-excellent" : score >= 60 ? "score-good" : "score-low";
+
+  const scoreStatus =
+    score >= 80
+      ? "Strong match"
+      : score >= 60
+        ? "Good potential"
+        : "Needs improvement";
+
+  const scoreDescription =
+    score >= 80
+      ? "Your resume is strongly aligned with the requirements of this role."
+      : score >= 60
+        ? "Your resume is relevant, but a few improvements can make it stronger."
+        : "Improve your role-specific skills, keywords, and resume content.";
 
   return (
     <section className="score-card">
@@ -33,11 +38,11 @@ function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
         <div
           className={`score-circle ${scoreColor}`}
           style={{
-            "--score-angle": `${(atsScore / 100) * 360}deg`,
+            "--score-angle": `${(score / 100) * 360}deg`,
           }}
         >
           <div className="score-circle-inner">
-            <strong>{atsScore}</strong>
+            <strong>{score}</strong>
 
             <span>/100</span>
           </div>
@@ -46,44 +51,12 @@ function ScoreCard({ atsScore = 0, scoreBreakdown = {} }) {
         <div className="score-message">
           <CheckCircle2 size={18} />
 
-          <span>
-            {atsScore >= 80
-              ? "Strong match"
-              : atsScore >= 60
-                ? "Good potential"
-                : "Needs improvement"}
-          </span>
+          <span>{scoreStatus}</span>
         </div>
-      </div>
 
-      <div className="score-breakdown">
-        <ScoreItem label="Skills match" value={skillsMatch} />
-        <ScoreItem label="Experience match" value={experienceMatch} />
-        <ScoreItem label="Keyword match" value={keywordMatch} />
-        <ScoreItem label="Formatting" value={formatting} />
+        <p className="score-description">{scoreDescription}</p>
       </div>
     </section>
-  );
-}
-
-function ScoreItem({ label, value }) {
-  return (
-    <div className="score-item">
-      <div className="score-item-header">
-        <span>{label}</span>
-
-        <strong>{value}%</strong>
-      </div>
-
-      <div className="score-progress">
-        <div
-          className="score-progress-fill"
-          style={{
-            width: `${value}%`,
-          }}
-        />
-      </div>
-    </div>
   );
 }
 
